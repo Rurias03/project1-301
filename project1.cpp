@@ -40,7 +40,22 @@ void selectionSort(vector<double> &arrayToSort) {
  * insertionSort
  */
 void insertionSort(vector<double> &arrayToSort) {
-    return;
+    int n = arrayToSort.size(); // Get the size of the array
+
+    // Iterate through the elements in the array (starting from the second element)
+    for (int i = 1; i < n; ++i) {
+        double key = arrayToSort[i];    // Current element to be sorted
+        int j = i - 1;
+
+        // Move elements that are greater than key one position ahead
+        while (j >= 0 && arrayToSort[j] > key) {
+            arrayToSort[j + 1] = arrayToSort[j];
+            --j;
+        }
+
+        // Insert the key into its correct position
+        arrayToSort[j + 1] = key;
+    }
 }
 
 /*
