@@ -16,7 +16,24 @@ using namespace std;
  * selectionSort
  */
 void selectionSort(vector<double> &arrayToSort) {
-    return;
+    int n = arrayToSort.size(); // Get the size of the array
+
+    // Iterate over each position in the array (except for the last one)
+    for (int i = 0; i < n - 1; ++i) {
+        int minIndex = i;   // Assume the current element is the smallest
+
+        // Find the smallest element in the remaining unsorted portion
+        for (int j = i + 1; j < n; ++j) {
+            if (arrayToSort[j] < arrayToSort[minIndex]) {
+                minIndex = j;   // Update minIndex if a smaller element is found
+            }
+        }
+
+        // Swap the minimum element with the first unsorted element
+        if (minIndex != i) {
+            std::swap(arrayToSort[i], arrayToSort[minIndex]);
+       }
+    }
 }
 
 /*
