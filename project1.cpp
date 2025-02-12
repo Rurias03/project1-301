@@ -62,13 +62,53 @@ void insertionSort(vector<double> &arrayToSort) {
  * bubbleSort
  */
 void bubbleSort(vector<double> &arrayToSort) {
+    int n = sizeof(arrayToSort);
+    for (int i = 0; i < n; i++) { // loop through two elements
+        for (int j = 0; j < n; j++) {
+            if (arrayToSort[j] > arrayToSort[j + 1]) { // compare if they are sorted already
+                 swap(arrayToSort[i], arrayToSort[i+1]); // swap if they are not
+        }
+    }
     return;
-}
+} }
 
 /*
  * mergeSort
  */
 void mergeSort(vector<double> &arrayToSort) {
+    double size = sizeof(arrayToSort);   // find array size
+    if (size == 1) {
+        return; // return array if size is 1
+    }   
+    else if (size == 2) { // if array size is 2
+        if (arrayToSort[0] > arrayToSort[1]) {
+            swap(arrayToSort[0], arrayToSort[1]); 
+        }
+        return;
+    }
+
+    int halfway = arrayToSort.size() / 2; // index for the midpoint of the array
+    std::vector<double> arrayLeft(arrayToSort.begin(), arrayToSort.begin() + halfway); // split array into two
+    std::vector<double> arrayRight(arrayToSort.begin() + halfway, arrayToSort.end());
+    mergeSort(arrayLeft); // sort each array
+    mergeSort(arrayRight);
+
+    int i = 0, j = 0, k = 0; // indexes for iteration
+    while (i < arrayLeft.size() && j < arrayRight.size()) { // iterate through both arrays
+        if (arrayLeft[i] <= arrayRight[j]) { // if array element on the first array is smaller 
+            arrayToSort[k++] = arrayLeft[i++]; // insert to sorted array
+        } 
+        else {
+            arrayToSort[k++] = arrayRight[j++];
+        }
+    }
+
+    while (i < arrayLeft.size()) { // copy elements from first array
+        arrayToSort[k++] = arrayLeft[i++];
+    }
+    while (j < arrayRight.size()) { // copy elements from second array
+        arrayToSort[k++] = arrayRight[j++];
+    }
     return;
 }
 
