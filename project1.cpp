@@ -62,34 +62,40 @@ void insertionSort(vector<double> &arrayToSort) {
  * bubbleSort
  */
 void bubbleSort(vector<double> &arrayToSort) {
-    int n = sizeof(arrayToSort);
-    for (int i = 0; i < n; i++) { // loop through two elements
-        for (int j = 0; j < n; j++) {
+    int n = arrayToSort.size();
+    bool swapped;
+
+    for (int i = 0; i < n; ++i) { // loop through two elements
+        swapped = false;    // Reset the swap flag at the start of each pass
+
+        for (int j = 0; j < n - 1; ++j) {
             if (arrayToSort[j] > arrayToSort[j + 1]) { // compare if they are sorted already
-                 swap(arrayToSort[i], arrayToSort[i+1]); // swap if they are not
+                 swap(arrayToSort[j], arrayToSort[j + 1]); // swap if they are not
+                 swapped = true;    // Mark that a swap occured
+            }
         }
-    }
-    return;
-} }
+
+        // If no swaps happen, the array is already sorted
+        if (!swapped) {
+            break;
+        }
+    } 
+}
 
 /*
  * mergeSort
  */
 void mergeSort(vector<double> &arrayToSort) {
-    double size = sizeof(arrayToSort);   // find array size
-    if (size == 1) {
+    int size = arrayToSort.size();   // find array size
+    if (size <= 1) {
         return; // return array if size is 1
-    }   
-    else if (size == 2) { // if array size is 2
-        if (arrayToSort[0] > arrayToSort[1]) {
-            swap(arrayToSort[0], arrayToSort[1]); 
-        }
-        return;
     }
 
-    int halfway = arrayToSort.size() / 2; // index for the midpoint of the array
+    int halfway = size / 2; // index for the midpoint of the array
+
     std::vector<double> arrayLeft(arrayToSort.begin(), arrayToSort.begin() + halfway); // split array into two
     std::vector<double> arrayRight(arrayToSort.begin() + halfway, arrayToSort.end());
+    
     mergeSort(arrayLeft); // sort each array
     mergeSort(arrayRight);
 
@@ -109,6 +115,7 @@ void mergeSort(vector<double> &arrayToSort) {
     while (j < arrayRight.size()) { // copy elements from second array
         arrayToSort[k++] = arrayRight[j++];
     }
+
     return;
 }
 
