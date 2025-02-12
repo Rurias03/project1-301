@@ -80,7 +80,26 @@ void mergeSort(vector<double> &arrayToSort) {
  * 
  */
 void quickSortHelper(vector<double> &arrayToSort, int i, int j) {
-    return;
+    if (i < j - 1) {    // Base Case: only proceed if more than one element in the partition
+        // Choose the pivot (last element of the partition)
+        double pivot = arrayToSort[j - 1];
+        int left = i;   // Pointer for elements smaller than the pivot
+
+        // Partition the array
+        for (int k = i; k < j; ++k) {
+            if (arrayToSort[k] < pivot) {
+                std::swap(arrayToSort[k], arrayToSort[left]);
+                ++left;
+            }
+        }
+
+        // Place the pivot in its correct position
+        std::swap(arrayToSort[left], arrayToSort[j - 1]);
+
+        // Recursively apply Quick Sort to left and right partitions
+        quickSortHelper(arrayToSort, i, left);      // Left partition
+        quickSortHelper(arrayToSort, left + 1, j);  // Right partition
+    }
 }
 
 /*
@@ -88,5 +107,4 @@ void quickSortHelper(vector<double> &arrayToSort, int i, int j) {
  */
 void quickSort(vector<double> &arrayToSort) {
     quickSortHelper(arrayToSort, 0, arrayToSort.size());
-    return;
 }
